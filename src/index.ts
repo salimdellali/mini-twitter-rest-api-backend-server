@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { Database } from './config/database.config';
+import { UserRouter } from './modules/user';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -11,6 +12,8 @@ const API_VERSION = '/api/v1';
 Database.connect(process.env.MONGODB_URL!);
 app.use(cors());
 app.use(express.json());
+
+app.use(API_VERSION + '/user', UserRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
