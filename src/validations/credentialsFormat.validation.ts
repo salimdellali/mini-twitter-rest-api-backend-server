@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-export const signupValidation = [
+export const credentialsFormatValidation = [
   body('username')
     .trim()
     .not()

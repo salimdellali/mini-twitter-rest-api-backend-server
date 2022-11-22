@@ -11,4 +11,14 @@ export default class UserController {
       next(error);
     }
   };
+
+  static login = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { username, password } = req.body;
+      const result = await UserService.login(username, password);
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
