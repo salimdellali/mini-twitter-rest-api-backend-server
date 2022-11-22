@@ -42,7 +42,7 @@ export default class UserService {
     // check if user doesn't exist
     const user = await UserRepository.findUserByUsername(username);
     if (!user)
-      throw new HttpException(400, "User with such username doesn't exists");
+      throw new HttpException(404, "User with such username doesn't exists");
 
     // validate password
     const isMatch = await bcrypt.compare(password, user.password);
