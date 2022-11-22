@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { HttpException } from '../expections/HttpException.exception';
+import { HttpException } from '../expections';
 
 export const validatorMiddleware = (
   req: Request,

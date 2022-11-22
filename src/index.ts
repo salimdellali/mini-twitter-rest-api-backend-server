@@ -3,6 +3,7 @@ import cors from 'cors';
 import { Database } from './config/database.config';
 import { UserRouter } from './modules/user';
 import * as dotenv from 'dotenv';
+import { errorMiddleware } from './middlewares';
 dotenv.config();
 
 const app: Express = express();
@@ -17,6 +18,9 @@ app.use(API_VERSION + '/user', UserRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
+
+// handle errors
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log('Web server running on port: ' + PORT);
