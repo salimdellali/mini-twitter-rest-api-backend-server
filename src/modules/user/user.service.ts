@@ -10,7 +10,7 @@ export default class UserService {
       throw new HttpException(400, 'User with such username already exists');
 
     // user does not exists, create new
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(+process.env.SALT!);
     const hashedPassword = await bcrypt.hash(password, salt);
     const nowDate = new Date();
     const newUserObject = {
@@ -23,7 +23,7 @@ export default class UserService {
     // create jwt token and sign it
     const token = await jwt.sign(
       { id: newSavedUser.id },
-      process.env.JWT_SECRET!,
+      process.env.ACCESS_TOKEN_PRIVATE_KEY!,
       { expiresIn: 3600 },
     );
 
@@ -55,9 +55,13 @@ export default class UserService {
     await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
     // renew jwt token
-    const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
-      expiresIn: 3600,
-    });
+    const token = await jwt.sign(
+      { id: user.id },
+      process.env.ACCESS_TOKEN_PRIVATE_KEY!,
+      {
+        expiresIn: 3600,
+      },
+    );
 
     // send back the result
     return {
