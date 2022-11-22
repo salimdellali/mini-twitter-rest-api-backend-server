@@ -1,25 +1,24 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from './user.model';
+import UserRepository from './user.repository';
 import { HttpException } from '../../expections';
 export default class UserService {
   static signup = async (username: string, password: string) => {
     // check if user exists
-    const isUserExist = await User.exists({ username });
+    const isUserExist = await UserRepository.isUserExistByUsername(username);
     if (isUserExist)
       throw new HttpException(400, 'User with such username already exists');
 
     // user does not exists, create new
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const now = new Date();
+    const nowDate = new Date();
     const newUserObject = {
       username,
       password: hashedPassword,
-      lastAccess: now,
+      lastAccess: nowDate,
     };
-    const newUser = new User(newUserObject);
-    const newSavedUser = await newUser.save();
+    const newSavedUser = await UserRepository.create(newUserObject);
 
     // create jwt token and sign it
     const token = await jwt.sign(
@@ -34,14 +33,14 @@ export default class UserService {
       user: {
         id: newSavedUser.id,
         username,
-        lastAccess: now,
+        lastAccess: nowDate,
       },
     };
   };
 
   static login = async (username: string, password: string) => {
     // check if user doesn't exist
-    const user = await User.findOne({ username });
+    const user = await UserRepository.findUserByUsername(username);
     if (!user)
       throw new HttpException(400, "User with such username doesn't exists");
 
@@ -49,12 +48,11 @@ export default class UserService {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw new HttpException(400, 'Wrong password');
 
-    // credentials are valid, update lastAccess and return the JWT token with needed info
-    const now = new Date();
-    const lastAccesDate = user.lastAccess;
-
+    // credentials are valid
     // update lastAccess Date
-    await User.findOneAndUpdate({ _id: user._id }, { lastAccess: now });
+    const nowDate = new Date();
+    const lastAccesDate = user.lastAccess;
+    await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
     // renew jwt token
     const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {

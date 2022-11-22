@@ -1,7 +1,17 @@
 import UserController from './user.controller';
-import UserService from './user.service';
-import User from './user.model';
-import { default as UserRouter } from './user.router';
+import { UserCreateDTO } from './user.dto';
 import IUser from './user.interface';
+import User from './user.model';
+import UserRepository from './user.repository';
+import { default as UserRouter } from './user.router';
+import UserService from './user.service';
 
-export { UserController, UserService, User, UserRouter, IUser };
+export {
+  UserController,
+  UserCreateDTO,
+  IUser,
+  User,
+  UserRepository,
+  UserRouter,
+  UserService,
+};
