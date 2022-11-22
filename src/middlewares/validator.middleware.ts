@@ -8,15 +8,12 @@ export const validatorMiddleware = (
   next: NextFunction,
 ) => {
   const errors = validationResult(req);
+  const messageObject = {
+    success: false,
+    message: errors.array(),
+  };
 
-  if (!errors.isEmpty())
-    throw new HttpException(
-      400,
-      JSON.stringify({
-        success: false,
-        message: errors.array(),
-      }),
-    );
+  if (!errors.isEmpty()) throw new HttpException(400, messageObject);
 
   next();
 };
