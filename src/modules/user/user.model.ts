@@ -1,4 +1,5 @@
-//  user.model.ts
+// user model
+
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
@@ -12,16 +13,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    registerDate: {
-      type: Date,
-      default: Date.now,
-    },
     lastAccess: {
       type: Date,
       default: Date.now,
     },
   },
-  { collection: 'users' },
+  { timestamps: true, collection: 'users' },
 );
 
 const User = mongoose.model('User', UserSchema);
