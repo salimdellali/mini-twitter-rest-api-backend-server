@@ -20,4 +20,12 @@ router
     validatorMiddleware,
     UserTokenController.logout,
   );
+
+router
+  .route('/token/refresh/verify')
+  .post(
+    refreshTokenValidation,
+    validatorMiddleware,
+    UserTokenController.verifyRefreshToken,
+  );
 export default router;

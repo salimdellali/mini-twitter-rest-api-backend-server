@@ -5,10 +5,10 @@ import { HttpException } from '../../expections';
 import UserTokenRepository from './userTOken.repository';
 export default class UserTokenService {
   static getNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
-    const { tokenDetails } = await UserTokenService.verifyRefreshToken(
+    const { refreshTokenDetails } = await UserTokenService.verifyRefreshToken(
       refreshToken,
     );
-    const { _id } = tokenDetails as JwtPayload;
+    const { _id } = refreshTokenDetails as JwtPayload;
     const accessToken = TokenUtil.generateAccessToken(_id);
     return {
       success: true,
@@ -37,14 +37,14 @@ export default class UserTokenService {
 
     // user token exist
     try {
-      const tokenDetails = await jwt.verify(
+      const refreshTokenDetails = await jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_PRIVATE_KEY!,
       );
       return {
         success: true,
         message: 'Valid refresh token',
-        tokenDetails,
+        refreshTokenDetails,
       };
     } catch (error) {
       throw new HttpException(401, 'Invalid refresh token');
