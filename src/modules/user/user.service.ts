@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import UserRepository from './user.repository';
 import { HttpException } from '../../expections';
+import TokenUtil from '../../utils/token.util';
 export default class UserService {
   static signup = async (username: string, password: string) => {
     // check if user exists
@@ -18,23 +18,11 @@ export default class UserService {
       password: hashedPassword,
       lastAccess: nowDate,
     };
-    const newSavedUser = await UserRepository.create(newUserObject);
+    await UserRepository.create(newUserObject);
 
-    // create jwt token and sign it
-    const token = await jwt.sign(
-      { id: newSavedUser.id },
-      process.env.ACCESS_TOKEN_PRIVATE_KEY!,
-      { expiresIn: 3600 },
-    );
-
-    // send back the result
     return {
-      token,
-      user: {
-        id: newSavedUser.id,
-        username,
-        lastAccess: nowDate,
-      },
+      success: true,
+      message: 'Account created succesfully',
     };
   };
 
@@ -54,23 +42,15 @@ export default class UserService {
     const lastAccesDate = user.lastAccess;
     await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
-    // renew jwt token
-    const token = await jwt.sign(
-      { id: user.id },
-      process.env.ACCESS_TOKEN_PRIVATE_KEY!,
-      {
-        expiresIn: 3600,
-      },
-    );
+    const { accessToken, refreshToken } = await TokenUtil.generateTokens(user);
 
     // send back the result
     return {
-      token,
-      user: {
-        id: user.id,
-        username,
-        lastAccess: lastAccesDate,
-      },
+      success: true,
+      message: 'Logged in sucessfully',
+      accessToken,
+      refreshToken,
+      lastAccess: lastAccesDate,
     };
   };
 }

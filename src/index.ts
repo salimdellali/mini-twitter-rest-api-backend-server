@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { Database } from './config/database.config';
 import { UserRouter } from './modules/user';
+import { UserTokenRouter } from './modules/auth';
 import * as dotenv from 'dotenv';
 import { errorMiddleware } from './middlewares';
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(API_VERSION + '/user', UserRouter);
+app.use(API_VERSION + '/usertoken', UserTokenRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
