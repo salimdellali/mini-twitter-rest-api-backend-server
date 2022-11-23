@@ -7,7 +7,7 @@ import * as dotenv from 'dotenv';
 import { errorMiddleware } from './middlewares';
 dotenv.config();
 
-const app: Express = express();
+export const app: Express = express();
 const PORT = process.env.PORT || 2000;
 const API_VERSION = '/api/v1';
 
