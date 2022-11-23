@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use(API_VERSION + '/user', UserRouter);
-app.use(API_VERSION + '/usertoken', UserTokenRouter);
+app.use(API_VERSION + '/auth', UserTokenRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));

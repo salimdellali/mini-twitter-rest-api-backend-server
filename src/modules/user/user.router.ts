@@ -13,8 +13,4 @@ router
     UserController.signup,
   );
 
-router
-  .route('/login')
-  .post(credentialsFormatValidation, validatorMiddleware, UserController.login);
-
 export default router;

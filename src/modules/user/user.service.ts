@@ -1,8 +1,6 @@
 import bcrypt from 'bcryptjs';
 import UserRepository from './user.repository';
-import { UserTokenRepository, UserTokenService } from '../auth';
 import { HttpException } from '../../expections';
-import TokenUtil from '../../utils/token.util';
 export default class UserService {
   static signup = async (username: string, password: string) => {
     // check if user exists
@@ -24,45 +22,6 @@ export default class UserService {
     return {
       success: true,
       message: 'Account created succesfully',
-    };
-  };
-
-  static login = async (username: string, password: string) => {
-    // check if user doesn't exist
-    const user = await UserRepository.findUserByUsername(username);
-    if (!user)
-      throw new HttpException(404, "User with such username doesn't exists");
-
-    // validate password
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) throw new HttpException(400, 'Wrong password');
-
-    // credentials are valid
-    // update lastAccess Date
-    const nowDate = new Date();
-    const lastAccesDate = user.lastAccess;
-    await UserRepository.updateLastAccessDateById(user._id, nowDate);
-
-    const accessToken = UserTokenService.generateAccessToken(user._id);
-    const refreshToken = UserTokenService.generateRefreshToken(user._id);
-
-    // renew token if already exists
-    const userToken = await UserTokenRepository.findUserTokenByUserId(user._id);
-    if (userToken) await userToken.remove();
-
-    const newUserTokenObject = {
-      user: user._id,
-      refreshToken: refreshToken,
-    };
-    await UserTokenRepository.create(newUserTokenObject);
-
-    // send back the result
-    return {
-      success: true,
-      message: 'Logged in sucessfully',
-      accessToken,
-      refreshToken,
-      lastAccess: lastAccesDate,
     };
   };
 }

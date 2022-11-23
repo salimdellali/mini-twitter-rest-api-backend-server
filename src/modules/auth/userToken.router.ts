@@ -1,9 +1,20 @@
 import { Router } from 'express';
 import UserTokenController from './userToken.controller';
-import { refreshTokenValidation } from '../../validations';
+import {
+  refreshTokenValidation,
+  credentialsFormatValidation,
+} from '../../validations';
 import { validatorMiddleware } from '../../middlewares';
 
 const router = Router();
+
+router
+  .route('/login')
+  .post(
+    credentialsFormatValidation,
+    validatorMiddleware,
+    UserTokenController.login,
+  );
 
 router
   .route('/token/access/new')

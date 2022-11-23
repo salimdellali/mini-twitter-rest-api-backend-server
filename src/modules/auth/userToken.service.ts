@@ -1,12 +1,53 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Types } from 'mongoose';
-import TokenUtil from '../../utils/token.util';
+import bcrypt from 'bcryptjs';
 import { HttpException } from '../../expections';
-import UserTokenRepository from './userTOken.repository';
+import UserTokenRepository from './userToken.repository';
+import { UserRepository } from '../user';
 export default class UserTokenService {
   /**
    * controller functions
    */
+
+  static login = async (username: string, password: string) => {
+    // check if user doesn't exist
+    const user = await UserRepository.findUserByUsername(username);
+    if (!user)
+      throw new HttpException(404, "User with such username doesn't exists");
+
+    // validate password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new HttpException(400, 'Wrong password');
+
+    // credentials are valid
+    // update lastAccess Date
+    const nowDate = new Date();
+    const lastAccesDate = user.lastAccess;
+    await UserRepository.updateLastAccessDateById(user._id, nowDate);
+
+    const accessToken = UserTokenService.generateAccessToken(user._id);
+    const refreshToken = UserTokenService.generateRefreshToken(user._id);
+
+    // renew token if already exists
+    const userToken = await UserTokenRepository.findUserTokenByUserId(user._id);
+    if (userToken) await userToken.remove();
+
+    const newUserTokenObject = {
+      user: user._id,
+      refreshToken: refreshToken,
+    };
+    await UserTokenRepository.create(newUserTokenObject);
+
+    // send back the result
+    return {
+      success: true,
+      message: 'Logged in sucessfully',
+      accessToken,
+      refreshToken,
+      lastAccess: lastAccesDate,
+    };
+  };
+
   static getNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
     const { refreshTokenDetails } = await UserTokenService.verifyRefreshToken(
       refreshToken,
@@ -57,6 +98,7 @@ export default class UserTokenService {
   /**
    * support functions
    */
+
   static generateAccessToken = (_id: Types.ObjectId) => {
     const payload = { _id };
     const accessToken = jwt.sign(
