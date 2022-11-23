@@ -10,7 +10,7 @@ router
   .post(
     refreshTokenValidation,
     validatorMiddleware,
-    UserTokenController.getNewAccessToken,
+    UserTokenController.getNewAccessTokenWithRefreshToken,
   );
 
 router

@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import UserRepository from './user.repository';
+import { UserTokenRepository } from '../auth';
 import { HttpException } from '../../expections';
 import TokenUtil from '../../utils/token.util';
 export default class UserService {
@@ -42,7 +43,18 @@ export default class UserService {
     const lastAccesDate = user.lastAccess;
     await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
-    const { accessToken, refreshToken } = await TokenUtil.generateTokens(user);
+    const accessToken = TokenUtil.generateAccessToken(user._id);
+    const refreshToken = TokenUtil.generateRefreshToken(user._id);
+
+    // renew token if already exists
+    const userToken = await UserTokenRepository.findUserTokenByUserId(user._id);
+    if (userToken) await userToken.remove();
+
+    const newUserTokenObject = {
+      user: user._id,
+      token: refreshToken,
+    };
+    await UserTokenRepository.create(newUserTokenObject);
 
     // send back the result
     return {
