@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const UserTokenSchema = new mongoose.Schema(
+const AuthSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -17,9 +17,9 @@ const UserTokenSchema = new mongoose.Schema(
       expires: 30 * 86400, // 30 days
     },
   },
-  { collection: 'userTokens' },
+  { collection: 'auths' },
 );
 
-const UserToken = mongoose.model('UserToken', UserTokenSchema);
+const Auth = mongoose.model('Auth', AuthSchema);
 
-export default UserToken;
+export default Auth;

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import UserTokenController from './userToken.controller';
+import AuthController from './auth.controller';
 import {
   refreshTokenValidation,
   credentialsFormatValidation,
@@ -10,33 +10,25 @@ const router = Router();
 
 router
   .route('/login')
-  .post(
-    credentialsFormatValidation,
-    validatorMiddleware,
-    UserTokenController.login,
-  );
+  .post(credentialsFormatValidation, validatorMiddleware, AuthController.login);
 
 router
   .route('/token/access/new')
   .post(
     refreshTokenValidation,
     validatorMiddleware,
-    UserTokenController.getNewAccessTokenWithRefreshToken,
+    AuthController.getNewAccessTokenWithRefreshToken,
   );
 
 router
   .route('/logout')
-  .delete(
-    refreshTokenValidation,
-    validatorMiddleware,
-    UserTokenController.logout,
-  );
+  .delete(refreshTokenValidation, validatorMiddleware, AuthController.logout);
 
 router
   .route('/token/refresh/verify')
   .post(
     refreshTokenValidation,
     validatorMiddleware,
-    UserTokenController.verifyRefreshToken,
+    AuthController.verifyRefreshToken,
   );
 export default router;

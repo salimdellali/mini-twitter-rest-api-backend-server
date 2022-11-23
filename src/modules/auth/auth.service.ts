@@ -2,9 +2,9 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Types } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { HttpException } from '../../expections';
-import UserTokenRepository from './userToken.repository';
+import AuthRepository from './auth.repository';
 import { UserRepository } from '../user';
-export default class UserTokenService {
+export default class AuthService {
   /**
    * controller functions
    */
@@ -25,18 +25,18 @@ export default class UserTokenService {
     const lastAccesDate = user.lastAccess;
     await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
-    const accessToken = UserTokenService.generateAccessToken(user._id);
-    const refreshToken = UserTokenService.generateRefreshToken(user._id);
+    const accessToken = AuthService.generateAccessToken(user._id);
+    const refreshToken = AuthService.generateRefreshToken(user._id);
 
     // renew token if already exists
-    const userToken = await UserTokenRepository.findUserTokenByUserId(user._id);
-    if (userToken) await userToken.remove();
+    const auth = await AuthRepository.findAuthByUserId(user._id);
+    if (auth) await auth.remove();
 
-    const newUserTokenObject = {
+    const newAuthObject = {
       user: user._id,
       refreshToken: refreshToken,
     };
-    await UserTokenRepository.create(newUserTokenObject);
+    await AuthRepository.create(newAuthObject);
 
     // send back the result
     return {
@@ -49,11 +49,11 @@ export default class UserTokenService {
   };
 
   static getNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
-    const { refreshTokenDetails } = await UserTokenService.verifyRefreshToken(
+    const { refreshTokenDetails } = await AuthService.verifyRefreshToken(
       refreshToken,
     );
     const { _id } = refreshTokenDetails as JwtPayload;
-    const accessToken = UserTokenService.generateAccessToken(_id);
+    const accessToken = AuthService.generateAccessToken(_id);
     return {
       success: true,
       message: 'New access token created successfully',
@@ -62,22 +62,18 @@ export default class UserTokenService {
   };
 
   static logout = async (refreshToken: string) => {
-    const userToken = await UserTokenRepository.findUserTokenByRefreshToken(
-      refreshToken,
-    );
+    const auth = await AuthRepository.findUAuthByRefreshToken(refreshToken);
     // if refresh token linked to user is not found, logout anyway
-    if (!userToken) return { success: true, message: 'Logged out sucessfully' };
+    if (!auth) return { success: true, message: 'Logged out sucessfully' };
 
     // refresh token linked to user exists, so remove it and logout
-    await UserTokenRepository.delete(userToken);
+    await AuthRepository.delete(auth);
     return { success: true, message: 'Logged out sucessfully' };
   };
 
   static verifyRefreshToken = async (refreshToken: string) => {
-    const userToken = await UserTokenRepository.findUserTokenByRefreshToken(
-      refreshToken,
-    );
-    if (!userToken) throw new HttpException(401, 'Invalid refresh token');
+    const auth = await AuthRepository.findUAuthByRefreshToken(refreshToken);
+    if (!auth) throw new HttpException(401, 'Invalid refresh token');
 
     // user token exist
     try {

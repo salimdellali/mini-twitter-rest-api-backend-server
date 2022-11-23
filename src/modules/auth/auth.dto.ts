@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 
-export interface UserTokenCreateDTO {
+export interface AuthCreateDTO {
   user: Types.ObjectId;
   refreshToken: string;
 }

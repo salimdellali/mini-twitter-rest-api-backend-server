@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import UserTokenService from './userToken.service';
+import AuthService from './auth.service';
 
-export default class UserTokenController {
+export default class AuthController {
   static login = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username, password } = req.body;
-      const result = await UserTokenService.login(username, password);
+      const result = await AuthService.login(username, password);
       return res.status(200).json(result);
     } catch (error) {
       next(error);
@@ -19,7 +19,7 @@ export default class UserTokenController {
   ) => {
     try {
       const { refreshToken } = req.body;
-      const result = await UserTokenService.getNewAccessTokenWithRefreshToken(
+      const result = await AuthService.getNewAccessTokenWithRefreshToken(
         refreshToken,
       );
       return res.status(200).json(result);
@@ -31,7 +31,7 @@ export default class UserTokenController {
   static logout = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { refreshToken } = req.body;
-      const result = await UserTokenService.logout(refreshToken);
+      const result = await AuthService.logout(refreshToken);
       return res.status(200).json(result);
     } catch (error) {
       next(error);
@@ -45,7 +45,7 @@ export default class UserTokenController {
   ) => {
     try {
       const { refreshToken } = req.body;
-      const result = await UserTokenService.verifyRefreshToken(refreshToken);
+      const result = await AuthService.verifyRefreshToken(refreshToken);
       return res.status(200).json(result);
     } catch (error) {
       next(error);
