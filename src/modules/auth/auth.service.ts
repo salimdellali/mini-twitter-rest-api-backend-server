@@ -49,10 +49,13 @@ export default class AuthService {
   };
 
   static getNewAccessTokenWithRefreshToken = async (refreshToken: string) => {
-    const { refreshTokenDetails } = await AuthService.verifyRefreshToken(
+    const { refreshTokenPayload } = await AuthService.verifyRefreshToken(
       refreshToken,
     );
-    const { _id } = refreshTokenDetails as JwtPayload;
+
+    // @TODO implement issuing new access token only when
+    // the old access token is withing 30s of expiry
+    const { _id } = refreshTokenPayload as JwtPayload;
     const accessToken = AuthService.generateAccessToken(_id);
     return {
       success: true,
@@ -77,14 +80,14 @@ export default class AuthService {
 
     // user token exist
     try {
-      const refreshTokenDetails = await jwt.verify(
+      const refreshTokenPayload = await jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_PRIVATE_KEY!,
       );
       return {
         success: true,
         message: 'Valid refresh token',
-        refreshTokenDetails,
+        refreshTokenPayload,
       };
     } catch (error) {
       throw new HttpException(401, 'Invalid refresh token');

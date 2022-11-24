@@ -1,9 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { HttpException } from '../expections';
+import { IAuthenticatedExpressRequest } from '../shared/interfaces';
 
 export const validatorMiddleware = (
-  req: Request,
+  req: Request | IAuthenticatedExpressRequest,
   res: Response,
   next: NextFunction,
 ) => {

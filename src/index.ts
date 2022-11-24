@@ -3,8 +3,10 @@ import cors from 'cors';
 import { Database } from './config/database.config';
 import { UserRouter } from './modules/user';
 import { AuthRouter } from './modules/auth';
+import { TweetRouter } from './modules/tweet';
 import * as dotenv from 'dotenv';
 import { errorMiddleware } from './middlewares';
+import { authMiddleware } from './middlewares/auth.middleware';
 dotenv.config();
 
 export const app: Express = express();
@@ -32,6 +34,7 @@ app.use(express.json());
 
 app.use(appConfig.API_VERSION + '/user', UserRouter);
 app.use(appConfig.API_VERSION + '/auth', AuthRouter);
+app.use(appConfig.API_VERSION + '/tweet', authMiddleware, TweetRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
