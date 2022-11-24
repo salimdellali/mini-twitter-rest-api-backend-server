@@ -22,4 +22,7 @@ export default class UserRepository {
   ) => {
     return User.findOneAndUpdate({ _id }, { lastAccess: newLastAccessDate });
   };
+
+  // @TODO implement deleteByUsername
+  // static deleteByUsername = async (username: string) => {};
 }

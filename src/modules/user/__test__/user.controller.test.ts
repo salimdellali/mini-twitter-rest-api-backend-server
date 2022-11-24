@@ -2,6 +2,8 @@ import supertest from 'supertest';
 import UserService from '../user.service';
 import { app } from '../../..';
 
+// jest.mock('../user.repository');
+
 const userCreationServicePayload = {
   success: true,
   message: 'Account created succesfully',
@@ -17,13 +19,13 @@ const signupInput = {
   password: '123',
 };
 
-beforeAll(() => {
-  jest.setTimeout(50000);
-});
+// beforeAll(() => {
+//   jest.setTimeout(50000);
+// });
 
-afterAll(() => {
-  jest.restoreAllMocks();
-});
+// afterAll(() => {
+//   jest.restoreAllMocks();
+// });
 
 describe('user controller', () => {
   describe('user signup route', () => {
@@ -90,6 +92,7 @@ describe('user controller', () => {
       });
     });
 
+    // @TODO implement test given the user exists and the user provided credentials in a valid format
     // describe('given the user exists and the user provided credentials in a valid format', () => {
     //   it('should return a 400', async () => {
     //     const userServiceMock = jest
