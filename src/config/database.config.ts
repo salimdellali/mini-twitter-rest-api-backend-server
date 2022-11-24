@@ -12,10 +12,10 @@ export class MongoDBConfiguration {
     return MongoDBConfiguration.instance;
   }
 
-  async connect(connectionString: string) {
+  async connect(connectionString: string, dbName: string) {
     // @TODO insert a logger
     try {
-      await mongoose.connect(connectionString);
+      await mongoose.connect(connectionString, { dbName });
       console.log('Connection to MongoDB established');
     } catch (error: any) {
       console.error(`Error connecting to MongoDB : ${error.message}`);

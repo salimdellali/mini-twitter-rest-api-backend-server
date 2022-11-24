@@ -16,8 +16,8 @@
     "prettier-watch:win32": "onchange \"src/**/*.ts\" -- prettier --write {{changed}}",
     "prettier-watch:darwin:linux": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
     "prettier-watch:default": "onchange 'src/**/*.ts' -- prettier --write {{changed}}",
-    "test": "jest",
-    "test:dev": "jest --watchAll"
+    "test": "NODE_ENV=test jest",
+    "test:dev": "NODE_ENV=test jest --watchAll"
   },
   "husky": {
     "hooks": {

@@ -3,5 +3,11 @@ module.exports = {
   testEnvironment: 'node',
   verbose: true,
   forceExit: true,
-  // clearMocks: true,
+  clearMocks: true,
+  transform: {
+    '^.+\\.ts?$': 'ts-jest',
+  },
+  testRegex: './src/.*\\.(test|spec)?\\.(ts|ts)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  roots: ['<rootDir>/src'],
 };

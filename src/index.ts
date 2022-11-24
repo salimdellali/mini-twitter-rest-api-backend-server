@@ -8,15 +8,30 @@ import { errorMiddleware } from './middlewares';
 dotenv.config();
 
 export const app: Express = express();
-const PORT = process.env.PORT || 2000;
-const API_VERSION = '/api/v1';
 
-Database.connect(process.env.MONGODB_URL!);
+const appConfig: any = {
+  MONGODB_URL: process.env.MONGODB_URL!,
+  API_VERSION: '/api/v1',
+  LISTEN_MSG:
+    process.env.NODE_ENV === 'test'
+      ? 'Test Web server running on port: '
+      : 'Web server running on port: ',
+  PORT:
+    process.env.NODE_ENV === 'test'
+      ? process.env.TEST_PORT!
+      : process.env.PORT!,
+  DB_NAME:
+    process.env.NODE_ENV === 'test'
+      ? process.env.TEST_DB_NAME!
+      : process.env.DB_NAME!,
+};
+
+Database.connect(appConfig.MONGODB_URL, appConfig.DB_NAME);
 app.use(cors());
 app.use(express.json());
 
-app.use(API_VERSION + '/user', UserRouter);
-app.use(API_VERSION + '/auth', AuthRouter);
+app.use(appConfig.API_VERSION + '/user', UserRouter);
+app.use(appConfig.API_VERSION + '/auth', AuthRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
@@ -24,6 +39,6 @@ app.get('/ping', (req: Request, res: Response) => res.send('pong'));
 // handle errors
 app.use(errorMiddleware);
 
-app.listen(PORT, () => {
-  console.log('Web server running on port: ' + PORT);
+app.listen(appConfig.PORT, () => {
+  console.log(appConfig.LISTEN_MSG + appConfig.PORT);
 });
