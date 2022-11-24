@@ -1,13 +1,14 @@
-import { Types } from 'mongoose';
+import { JwtPayload } from 'jsonwebtoken';
 import TweetRepository from './tweet.repository';
 
 export default class TweetService {
-  static postTweetByUserIdAndContent = async (
-    userId: Types.ObjectId,
+  static postTweetByUserAndContent = async (
+    user: JwtPayload,
     content: string,
   ) => {
     const newTweetObject = {
-      user: userId,
+      user: user._id,
+      username: user.username,
       content,
     };
     await TweetRepository.create(newTweetObject);

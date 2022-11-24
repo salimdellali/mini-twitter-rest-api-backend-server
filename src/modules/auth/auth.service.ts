@@ -25,8 +25,15 @@ export default class AuthService {
     const lastAccesDate = user.lastAccess;
     await UserRepository.updateLastAccessDateById(user._id, nowDate);
 
-    const accessToken = AuthService.generateAccessToken(user._id);
-    const refreshToken = AuthService.generateRefreshToken(user._id);
+    const { _id } = user;
+    const accessToken = AuthService.generateAccessTokenByUserIdAndUsername(
+      _id,
+      username,
+    );
+    const refreshToken = AuthService.generateRefreshTokenByUserIdAndUsername(
+      _id,
+      username,
+    );
 
     // renew token if already exists
     const auth = await AuthRepository.findAuthByUserId(user._id);
@@ -55,8 +62,11 @@ export default class AuthService {
 
     // @TODO implement issuing new access token only when
     // the old access token is withing 30s of expiry
-    const { _id } = refreshTokenPayload as JwtPayload;
-    const accessToken = AuthService.generateAccessToken(_id);
+    const { _id, username } = refreshTokenPayload as JwtPayload;
+    const accessToken = AuthService.generateAccessTokenByUserIdAndUsername(
+      _id,
+      username,
+    );
     return {
       success: true,
       message: 'New access token created successfully',
@@ -98,8 +108,11 @@ export default class AuthService {
    * support functions
    */
 
-  static generateAccessToken = (_id: Types.ObjectId) => {
-    const payload = { _id };
+  static generateAccessTokenByUserIdAndUsername = (
+    _id: Types.ObjectId,
+    username: string,
+  ) => {
+    const payload = { _id, username };
     const accessToken = jwt.sign(
       payload,
       process.env.ACCESS_TOKEN_PRIVATE_KEY!,
@@ -108,8 +121,11 @@ export default class AuthService {
     return accessToken;
   };
 
-  static generateRefreshToken = (_id: Types.ObjectId) => {
-    const payload = { _id };
+  static generateRefreshTokenByUserIdAndUsername = (
+    _id: Types.ObjectId,
+    username: string,
+  ) => {
+    const payload = { _id, username };
     const refreshToken = jwt.sign(
       payload,
       process.env.REFRESH_TOKEN_PRIVATE_KEY!,

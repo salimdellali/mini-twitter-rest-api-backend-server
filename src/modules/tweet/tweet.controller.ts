@@ -12,8 +12,8 @@ export default class TweetController {
       const { user } = req;
       const { content } = req.body;
 
-      const result = await TweetService.postTweetByUserIdAndContent(
-        user!._id,
+      const result = await TweetService.postTweetByUserAndContent(
+        user!,
         content,
       );
       return res.status(201).json(result);
