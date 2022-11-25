@@ -18,7 +18,7 @@ router
     authMiddleware,
     tweetContentValidation,
     validatorMiddleware,
-    TweetController.postTweetByUserAndContent,
+    TweetController.postTweetByContentAndUser,
   );
 
 router
@@ -27,7 +27,11 @@ router
     authMiddleware,
     tweetContentValidation,
     validatorMiddleware,
-    TweetController.updateTweetContentById,
+    TweetController.updateTweetContentByIdAndUser,
   );
+
+router
+  .route('/user/delete')
+  .delete(authMiddleware, TweetController.deleteTweetByIdAndUser);
 
 export default router;

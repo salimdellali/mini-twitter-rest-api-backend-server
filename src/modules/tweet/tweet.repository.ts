@@ -49,10 +49,7 @@ export default class TweetRepository {
     newTweetContent: string,
   ) => {
     try {
-      return Tweet.findOneAndUpdate(
-        { _id: tweetId },
-        { content: newTweetContent },
-      );
+      return Tweet.findByIdAndUpdate(tweetId, { content: newTweetContent });
     } catch (error) {
       console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
@@ -69,6 +66,15 @@ export default class TweetRepository {
         user: userId,
       });
       return exist;
+    } catch (error) {
+      console.error('[DB_ERROR]\t: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
+  };
+
+  static deleteById = (tweetId: Types.ObjectId) => {
+    try {
+      return Tweet.findByIdAndDelete(tweetId);
     } catch (error) {
       console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');

@@ -26,7 +26,7 @@ export default class TweetService {
     };
   };
 
-  static postTweetByUserAndContent = async (
+  static postTweetByContentAndUser = async (
     user: JwtPayload,
     content: string,
   ) => {
@@ -52,12 +52,29 @@ export default class TweetService {
     const isExistAndOwned =
       await TweetRepository.isTweetExistByTweetIdAndUserId(user._id, tweetId);
     if (!isExistAndOwned)
-      throw new HttpException(400, "Tweet doesn't exist or edit forbidden");
+      throw new HttpException(400, "Tweet doesn't exist or forbidden edit");
 
     await TweetRepository.updateTweetContentById(tweetId, newTweetContent);
     return {
       success: true,
       message: 'Tweet content updated succesfully',
+    };
+  };
+
+  static deleteTweetByIdAndUser = async (
+    user: JwtPayload,
+    tweetId: Types.ObjectId,
+  ) => {
+    // check if tweet exists and is owned by the user
+    const isExistAndOwned =
+      await TweetRepository.isTweetExistByTweetIdAndUserId(user._id, tweetId);
+    if (!isExistAndOwned)
+      throw new HttpException(400, "Tweet doesn't exist or forbidden delete");
+
+    await TweetRepository.deleteById(tweetId);
+    return {
+      success: true,
+      message: 'Tweet deleted succesfully',
     };
   };
 }

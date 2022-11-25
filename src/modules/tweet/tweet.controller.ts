@@ -26,7 +26,7 @@ export default class TweetController {
     }
   };
 
-  static postTweetByUserAndContent = async (
+  static postTweetByContentAndUser = async (
     req: IAuthenticatedExpressRequest,
     res: Response,
     next: NextFunction,
@@ -35,7 +35,7 @@ export default class TweetController {
       const { user } = req;
       const { content } = req.body;
 
-      const result = await TweetService.postTweetByUserAndContent(
+      const result = await TweetService.postTweetByContentAndUser(
         user!,
         content,
       );
@@ -45,7 +45,7 @@ export default class TweetController {
     }
   };
 
-  static updateTweetContentById = async (
+  static updateTweetContentByIdAndUser = async (
     req: IAuthenticatedExpressRequest,
     res: Response,
     next: NextFunction,
@@ -59,6 +59,22 @@ export default class TweetController {
         tweetId,
         content,
       );
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static deleteTweetByIdAndUser = async (
+    req: IAuthenticatedExpressRequest,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { tweetId } = req.body;
+      const { user } = req;
+
+      const result = await TweetService.deleteTweetByIdAndUser(user!, tweetId);
       return res.status(200).json(result);
     } catch (error) {
       next(error);
