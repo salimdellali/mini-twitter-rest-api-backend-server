@@ -16,9 +16,11 @@ export class MongoDBConfiguration {
     // @TODO insert a logger
     try {
       await mongoose.connect(connectionString, { dbName });
-      console.log('Connection to MongoDB established');
+      console.log('[DB_INFO]\t: Connection to MongoDB established');
     } catch (error: any) {
-      console.error(`Error connecting to MongoDB : ${error.message}`);
+      console.error(
+        `[DB_ERROR]\t: Error connecting to MongoDB : ${error.message}`,
+      );
       process.exit(1);
     }
   }

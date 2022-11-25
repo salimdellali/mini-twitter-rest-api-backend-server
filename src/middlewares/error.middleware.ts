@@ -14,14 +14,17 @@ export const errorMiddleware = (
     case undefined:
       errorStatus = 500;
       errorMessage = 'Internal server error';
+      console.error('[SYS_ERROR]\t: ' + errorMessage);
       break;
     default:
       errorStatus = error.status;
       errorMessage = error.message;
+      break;
   }
   const messageObject = {
     success: false,
     message: errorMessage,
   };
+
   res.status(errorStatus).json(messageObject);
 };

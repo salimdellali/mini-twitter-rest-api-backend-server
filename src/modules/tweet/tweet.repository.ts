@@ -10,7 +10,7 @@ export default class TweetRepository {
       const savedTweet = await newTweet.save();
       return savedTweet;
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };

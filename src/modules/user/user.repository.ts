@@ -10,7 +10,7 @@ export default class UserRepository {
       const savedUser = await newUser.save();
       return savedUser;
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -19,7 +19,7 @@ export default class UserRepository {
     try {
       return await User.findOne({ username });
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -28,7 +28,7 @@ export default class UserRepository {
     try {
       return await User.exists({ username });
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -40,7 +40,7 @@ export default class UserRepository {
     try {
       return User.findOneAndUpdate({ _id }, { lastAccess: newLastAccessDate });
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };

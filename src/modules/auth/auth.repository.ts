@@ -11,7 +11,7 @@ export default class AuthRepository {
       const savedAuth = await newAuth.save();
       return savedAuth;
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -20,7 +20,7 @@ export default class AuthRepository {
     try {
       return await Auth.findOne({ user: userId });
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -29,7 +29,7 @@ export default class AuthRepository {
     try {
       return await Auth.findOne({ token: refreshToken });
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };
@@ -38,7 +38,7 @@ export default class AuthRepository {
     try {
       return await auth.remove();
     } catch (error) {
-      console.error('DB_ERROR: ' + error);
+      console.error('[DB_ERROR]\t: ' + error);
       throw new HttpException(500, 'Internal server error');
     }
   };

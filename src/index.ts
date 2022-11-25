@@ -16,8 +16,8 @@ const appConfig: any = {
   API_VERSION: '/api/v1',
   LISTEN_MSG:
     process.env.NODE_ENV === 'test'
-      ? 'Test Web server running on port: '
-      : 'Web server running on port: ',
+      ? '[SYS_INFO]\t: Test Web server running on port: '
+      : '[SYS_INFO]\t: Web server running on port: ',
   PORT:
     process.env.NODE_ENV === 'test'
       ? process.env.TEST_PORT!
