@@ -48,7 +48,7 @@ export default class AuthService {
     // send back the result
     return {
       success: true,
-      message: 'Logged in sucessfully',
+      message: 'Logged in successfully',
       accessToken,
       refreshToken,
       lastAccess: lastAccesDate,
@@ -77,11 +77,11 @@ export default class AuthService {
   static logout = async (refreshToken: string) => {
     const auth = await AuthRepository.findUAuthByRefreshToken(refreshToken);
     // if refresh token linked to user is not found, logout anyway
-    if (!auth) return { success: true, message: 'Logged out sucessfully' };
+    if (!auth) return { success: true, message: 'Logged out successfully' };
 
     // refresh token linked to user exists, so remove it and logout
     await AuthRepository.delete(auth);
-    return { success: true, message: 'Logged out sucessfully' };
+    return { success: true, message: 'Logged out successfully' };
   };
 
   static verifyRefreshToken = async (refreshToken: string) => {

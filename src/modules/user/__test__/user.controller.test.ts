@@ -6,7 +6,7 @@ import { app } from '../../..';
 
 const userCreationServicePayload = {
   success: true,
-  message: 'Account created succesfully',
+  message: 'Account created successfully',
 };
 
 const userCreationServiceErrorPayload = {

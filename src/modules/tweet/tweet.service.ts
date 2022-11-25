@@ -9,7 +9,7 @@ export default class TweetService {
 
     return {
       success: true,
-      message: 'Feed fetched succesfully',
+      message: 'Feed fetched successfully',
       feed,
     };
   };
@@ -21,7 +21,7 @@ export default class TweetService {
 
     return {
       success: true,
-      message: 'User tweets fetched succesfully',
+      message: 'User tweets fetched successfully',
       userTweets,
     };
   };
@@ -39,7 +39,7 @@ export default class TweetService {
 
     return {
       success: true,
-      message: 'Tweet created succesfully',
+      message: 'Tweet created successfully',
     };
   };
 
@@ -57,7 +57,7 @@ export default class TweetService {
     await TweetRepository.updateTweetContentById(tweetId, newTweetContent);
     return {
       success: true,
-      message: 'Tweet content updated succesfully',
+      message: 'Tweet content updated successfully',
     };
   };
 
@@ -74,7 +74,7 @@ export default class TweetService {
     await TweetRepository.deleteById(tweetId);
     return {
       success: true,
-      message: 'Tweet deleted succesfully',
+      message: 'Tweet deleted successfully',
     };
   };
 }

@@ -21,7 +21,7 @@ export default class UserService {
 
     return {
       success: true,
-      message: 'Account created succesfully',
+      message: 'Account created successfully',
     };
   };
 }
