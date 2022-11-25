@@ -6,7 +6,8 @@ import { AuthCreateDTO } from './auth.dto';
 export default class AuthRepository {
   static create = async (newAuthObject: AuthCreateDTO) => {
     const newAuth = new Auth(newAuthObject);
-    return newAuth.save();
+    const savedAuth = await newAuth.save();
+    return savedAuth;
   };
 
   static findAuthByUserId = async (userId: Types.ObjectId) => {

@@ -5,7 +5,8 @@ import User from './user.model';
 export default class UserRepository {
   static create = async (newUserObject: UserCreateDTO) => {
     const newUser = new User(newUserObject);
-    return await newUser.save();
+    const savedUser = await newUser.save();
+    return savedUser;
   };
 
   static findUserByUsername = async (username: string) => {
