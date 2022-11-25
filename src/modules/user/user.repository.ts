@@ -1,27 +1,48 @@
 import { Types } from 'mongoose';
 import { UserCreateDTO } from './user.dto';
 import User from './user.model';
+import { HttpException } from '../../expections';
 
 export default class UserRepository {
   static create = async (newUserObject: UserCreateDTO) => {
-    const newUser = new User(newUserObject);
-    const savedUser = await newUser.save();
-    return savedUser;
+    try {
+      const newUser = new User(newUserObject);
+      const savedUser = await newUser.save();
+      return savedUser;
+    } catch (error) {
+      console.error('DB_ERROR: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
   };
 
   static findUserByUsername = async (username: string) => {
-    return await User.findOne({ username });
+    try {
+      return await User.findOne({ username });
+    } catch (error) {
+      console.error('DB_ERROR: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
   };
 
   static isUserExistByUsername = async (username: string) => {
-    return await User.exists({ username });
+    try {
+      return await User.exists({ username });
+    } catch (error) {
+      console.error('DB_ERROR: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
   };
 
   static updateLastAccessDateById = async (
     _id: Types.ObjectId,
     newLastAccessDate: Date,
   ) => {
-    return User.findOneAndUpdate({ _id }, { lastAccess: newLastAccessDate });
+    try {
+      return User.findOneAndUpdate({ _id }, { lastAccess: newLastAccessDate });
+    } catch (error) {
+      console.error('DB_ERROR: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
   };
 
   // @TODO implement deleteByUsername
