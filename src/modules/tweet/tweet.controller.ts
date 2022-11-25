@@ -21,4 +21,24 @@ export default class TweetController {
       next(error);
     }
   };
+
+  static updateTweetContentById = async (
+    req: IAuthenticatedExpressRequest,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { tweetId, content } = req.body;
+      const { user } = req;
+
+      const result = await TweetService.updateTweetContentByIdAndUser(
+        user!,
+        tweetId,
+        content,
+      );
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

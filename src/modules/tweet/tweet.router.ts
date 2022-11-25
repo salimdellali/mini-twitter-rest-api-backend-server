@@ -13,4 +13,12 @@ router
     TweetController.postTweetByUserAndContent,
   );
 
+router
+  .route('/content/edit')
+  .patch(
+    tweetContentValidation,
+    validatorMiddleware,
+    TweetController.updateTweetContentById,
+  );
+
 export default router;

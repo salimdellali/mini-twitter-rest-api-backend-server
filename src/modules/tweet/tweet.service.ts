@@ -1,4 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken';
+import { Types } from 'mongoose';
+import { HttpException } from '../../expections';
 import TweetRepository from './tweet.repository';
 
 export default class TweetService {
@@ -16,6 +18,24 @@ export default class TweetService {
     return {
       success: true,
       message: 'Tweet created succesfully',
+    };
+  };
+
+  static updateTweetContentByIdAndUser = async (
+    user: JwtPayload,
+    tweetId: Types.ObjectId,
+    newTweetContent: string,
+  ) => {
+    // check if tweet exists and is owned by the user
+    const isExistAndOwned =
+      await TweetRepository.isTweetExistByTweetIdAndUserId(user._id, tweetId);
+    if (!isExistAndOwned)
+      throw new HttpException(400, "Tweet doesn't exist or edit forbidden");
+
+    await TweetRepository.updateTweetContentById(tweetId, newTweetContent);
+    return {
+      success: true,
+      message: 'Tweet content updated succesfully',
     };
   };
 }
