@@ -4,6 +4,28 @@ import { HttpException } from '../../expections';
 import TweetRepository from './tweet.repository';
 
 export default class TweetService {
+  static getFeed = async () => {
+    const feed = await TweetRepository.findAllSortedByCreatedAtDesc();
+
+    return {
+      success: true,
+      message: 'Feed fetched succesfully',
+      feed,
+    };
+  };
+
+  static getTweetsByUser = async (user: JwtPayload) => {
+    const userTweets = await TweetRepository.findByUserIdSortedByCreatedAtDesc(
+      user._id,
+    );
+
+    return {
+      success: true,
+      message: 'User tweets fetched succesfully',
+      userTweets,
+    };
+  };
+
   static postTweetByUserAndContent = async (
     user: JwtPayload,
     content: string,

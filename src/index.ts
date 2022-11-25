@@ -34,7 +34,7 @@ app.use(express.json());
 
 app.use(appConfig.API_VERSION + '/user', UserRouter);
 app.use(appConfig.API_VERSION + '/auth', AuthRouter);
-app.use(appConfig.API_VERSION + '/tweet', authMiddleware, TweetRouter);
+app.use(appConfig.API_VERSION + '/tweet', TweetRouter);
 
 // healthcheck route
 app.get('/ping', (req: Request, res: Response) => res.send('pong'));
