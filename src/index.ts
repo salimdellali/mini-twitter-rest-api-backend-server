@@ -5,12 +5,13 @@ import { UserRouter } from './modules/user';
 import { AuthRouter } from './modules/auth';
 import { TweetRouter } from './modules/tweet';
 import { errorMiddleware } from './middlewares';
+import { IAppConfig } from './shared/interfaces';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
 export const app: Express = express();
 
-const appConfig: any = {
+const appConfig: IAppConfig = {
   MONGODB_URL: process.env.MONGODB_URL!,
   API_VERSION: '/api/v1',
   LISTEN_MSG:
