@@ -7,9 +7,21 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction,
 ) => {
+  let errorStatus;
+  let errorMessage;
+  switch (error.status) {
+    case 500:
+    case undefined:
+      errorStatus = 500;
+      errorMessage = 'Internal server error';
+      break;
+    default:
+      errorStatus = error.status;
+      errorMessage = error.message;
+  }
   const messageObject = {
     success: false,
-    message: error.status === 500 ? 'Internal server error' : error.message,
+    message: errorMessage,
   };
-  res.status(error.status).json(messageObject);
+  res.status(errorStatus).json(messageObject);
 };

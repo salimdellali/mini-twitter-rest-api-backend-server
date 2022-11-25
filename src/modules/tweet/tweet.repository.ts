@@ -1,9 +1,17 @@
+import { Types } from 'mongoose';
 import { TweetCreateDTO } from './tweet.dto';
 import Tweet from './tweet.model';
+import { HttpException } from '../../expections';
 
 export default class TweetRepository {
   static create = async (newTweetObject: TweetCreateDTO) => {
-    const newTweet = new Tweet(newTweetObject);
-    return newTweet.save();
+    try {
+      const newTweet = new Tweet(newTweetObject);
+      const savedTweet = await newTweet.save();
+      return savedTweet;
+    } catch (error) {
+      console.error('DB_ERROR: ' + error);
+      throw new HttpException(500, 'Internal server error');
+    }
   };
 }
