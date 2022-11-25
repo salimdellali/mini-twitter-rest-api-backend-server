@@ -1,0 +1,1329 @@
+{
+	"info": {
+		"_postman_id": "972b747c-a8ce-4c38-aedb-f29f7dbd2acb",
+		"name": "Salim Dellali Speer Technologies mini twitter backend challenge RES API collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12448816"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"salim\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/user/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 CREATED",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"salim\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/user/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Account created succesfully\"\n}"
+						},
+						{
+							"name": "400 User Already Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"svitlana\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/user/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User with such username already exists\"\n}"
+						},
+						{
+							"name": "400 Empty User input(s)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"\",\n    \"password\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/user/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": [\n        {\n            \"value\": \"\",\n            \"msg\": \"Please provide a username\",\n            \"param\": \"username\",\n            \"location\": \"body\"\n        },\n        {\n            \"value\": \"\",\n            \"msg\": \"Please provide a password\",\n            \"param\": \"password\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"salim\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"salim\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Logged in sucessfully\",\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY2OTIxNjIyNn0.4HKpe246AGiJDaXjjeOJEZjWYmaeoDgK4YxgxeLdMAM\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY3MTgwNzM4Nn0.ZMjpAPxYHc_xqeXxjDJIDaQeQa9GRo_Oi-Scs470T0w\",\n    \"lastAccess\": \"2022-11-23T14:14:15.078Z\"\n}"
+						},
+						{
+							"name": "404 User Doesn't Exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"wrong\",\n    \"password\": \"123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"User with such username doesn't exists\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get New Access Token With Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMWNjMDA2OGQ3MGM2ZjA3NWU4MDQiLCJ1c2VybmFtZSI6ImthdGlhIiwiaWF0IjoxNjY5Mzg5MjMxLCJleHAiOjE2NzE5ODEyMzF9.1uLPRcFFnriTWy-X-T80gP8-Gm9hXK2RxMeXd9swP_I\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/token/access/new",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token",
+								"access",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdjMjFkZmYwMWY1OWI2Y2QxNDljMGQiLCJpYXQiOjE2NjkxNjA1MDUsImV4cCI6MTY3MTc1MjUwNX0.8MMq-W07ISd2kk0BA7ihQOyMZVb4-i44beLdG3jyiSU\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/token/access/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"token",
+										"access",
+										"new"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"New access token created successfully\",\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTU2MjgsImV4cCI6MTY2OTIxNjQ2OH0.F_EIO2efzruv5F3ltSzQUyl7RDemqpIA0BXdTZ_ap4k\"\n}"
+						},
+						{
+							"name": "401 Wrong Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"wrong\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/token/access/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"token",
+										"access",
+										"new"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid refresh token\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJ1c2VybmFtZSI6InNhbGltIiwiaWF0IjoxNjY5Mzg5NDc2LCJleHAiOjE2NzE5ODE0NzZ9.XJZ0RM096Axc75_md8GlefHEbjfVgteXZF0iRPBddIM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdjMjFkZmYwMWY1OWI2Y2QxNDljMGQiLCJpYXQiOjE2NjkxNjA1MDUsImV4cCI6MTY3MTc1MjUwNX0.8MMq-W07ISd2kk0BA7ihQOyMZVb4-i44beLdG3jyiSU\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/usertoken/token/access/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"usertoken",
+										"token",
+										"access",
+										"new"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Logged out successfully\"\n}"
+						},
+						{
+							"name": "401 Invalid Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"wrong\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/usertoken/token/access/new",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"usertoken",
+										"token",
+										"access",
+										"new"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid refresh token\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMWNjMDA2OGQ3MGM2ZjA3NWU4MDQiLCJ1c2VybmFtZSI6ImthdGlhIiwiaWF0IjoxNjY5MzQwMzU5LCJleHAiOjE2NzE5MzIzNTl9.gexk5rcb-SXoL2ktQuOCtRD0y7RrRViexU7I52KfzdU\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/token/refresh/verify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"token",
+								"refresh",
+								"verify"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdjMjFkZmYwMWY1OWI2Y2QxNDljMGQiLCJpYXQiOjE2NjkyMjY1ODksImV4cCI6MTY3MTgxODU4OX0.EaGcYSS8Rls2sahxv2OpM-q2vEnfjJFO4UoVvvPfP5c\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/token/refresh/verify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"token",
+										"refresh",
+										"verify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Valid refresh token\",\n    \"refreshTokenPayload\": {\n        \"_id\": \"63801cc0068d70c6f075e804\",\n        \"username\": \"katia\",\n        \"iat\": 1669340359,\n        \"exp\": 1671932359\n    }\n}"
+						},
+						{
+							"name": "401 Invalid Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdjMjFkZmYwMWY1OWI2Y2QxNDljMGQiLCJpYXQiOjE2NjkyMjY1ODksImV4cCI6MTY3MTgxODU4OX0.EaGcYSS8Rls2sahxv2OpM-q2vEnfjJFO4UoVvvPfP5c\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/auth/token/refresh/verify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"token",
+										"refresh",
+										"verify"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid refresh token\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tweet",
+			"item": [
+				{
+					"name": "Get Feed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tweet/feed/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tweet",
+								"feed",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Feed fetched succesfully\",\n    \"feed\": [\n        {\n            \"_id\": \"6380255276eb948acc5d0180\",\n            \"username\": \"katia\",\n            \"content\": \"third tweet by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:46.148Z\"\n        },\n        {\n            \"_id\": \"6380254e76eb948acc5d017e\",\n            \"username\": \"katia\",\n            \"content\": \"second tweet by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:42.003Z\"\n        },\n        {\n            \"_id\": \"6380252476eb948acc5d0176\",\n            \"username\": \"salim\",\n            \"content\": \"second tweet by salim\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:00.661Z\"\n        },\n        {\n            \"_id\": \"638024cdfafd182b22a8f340\",\n            \"username\": \"salim\",\n            \"content\": \"first tweet by salim\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:13:33.203Z\"\n        },\n        {\n            \"_id\": \"638023dcfafd182b22a8f334\",\n            \"username\": \"katia\",\n            \"content\": \"first tweet by katia updated by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:09:32.956Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Tweets | AUTHENTICATED",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMWNjMDA2OGQ3MGM2ZjA3NWU4MDQiLCJ1c2VybmFtZSI6ImthdGlhIiwiaWF0IjoxNjY5NDA1MDYxLCJleHAiOjE2Njk0MDU5MDF9.YO0Up-hex8AqBL9hAu6Kvhg7VETf8jwxVo8_VT8SAlM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tweet/user/all/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tweet",
+								"user",
+								"all",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Feed fetched succesfully\",\n    \"feed\": [\n        {\n            \"_id\": \"6380255276eb948acc5d0180\",\n            \"username\": \"katia\",\n            \"content\": \"third tweet by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:46.148Z\"\n        },\n        {\n            \"_id\": \"6380254e76eb948acc5d017e\",\n            \"username\": \"katia\",\n            \"content\": \"second tweet by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:42.003Z\"\n        },\n        {\n            \"_id\": \"6380252476eb948acc5d0176\",\n            \"username\": \"salim\",\n            \"content\": \"second tweet by salim\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:15:00.661Z\"\n        },\n        {\n            \"_id\": \"638024cdfafd182b22a8f340\",\n            \"username\": \"salim\",\n            \"content\": \"first tweet by salim\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:13:33.203Z\"\n        },\n        {\n            \"_id\": \"638023dcfafd182b22a8f334\",\n            \"username\": \"katia\",\n            \"content\": \"first tweet by katia updated by katia\",\n            \"nbLikes\": 0,\n            \"nbRetweets\": 0,\n            \"createdAt\": \"2022-11-25T02:09:32.956Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Post Tweet By Content | AUTHENTICATED",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMjFjMWEwN2MyMjUwOWQwOTAyZTYiLCJ1c2VybmFtZSI6InN2aXRsYW5hIiwiaWF0IjoxNjY5Mzg3MjI1LCJleHAiOjE2NjkzODgwNjV9.bs6ZM6pEpfiWHRc5ib2VNxGMbKhq5AuIOWtXqy_5cFY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"fourth tweet by svitlana\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tweet/user/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tweet",
+								"user",
+								"post"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201 CREATED",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJpYXQiOjE2NjkzMjI4NzYsImV4cCI6MTY2OTMyMzcxNn0.lztKVPa1Qbl0sGYNk7Qyp761_ywrndGIF8LdxbZeG3A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"first tweet by salim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Tweet created succesfully\"\n}"
+						},
+						{
+							"name": "400 Empty Content Provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJpYXQiOjE2NjkzMjI4NzYsImV4cCI6MTY2OTMyMzcxNn0.lztKVPa1Qbl0sGYNk7Qyp761_ywrndGIF8LdxbZeG3A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": [\n        {\n            \"value\": \"\",\n            \"msg\": \"Please provide a content\",\n            \"param\": \"content\",\n            \"location\": \"body\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "401 Invalid Token Provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "wrong",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"first tweet by salim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid token, access denied\"\n}"
+						},
+						{
+							"name": "401 No Token Provided",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"first tweet by salim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"No token, access denied\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Tweet Content By Id | AUTHENTICATED",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMjFjMWEwN2MyMjUwOWQwOTAyZTYiLCJ1c2VybmFtZSI6InN2aXRsYW5hIiwiaWF0IjoxNjY5Mzg3MjI1LCJleHAiOjE2NjkzODgwNjV9.bs6ZM6pEpfiWHRc5ib2VNxGMbKhq5AuIOWtXqy_5cFY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tweetId\": \"6380d40bcd65aa9236ff8d95\",\n    \"content\": \"third tweet by svitlana updated by svetlana\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tweet/user/content/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tweet",
+								"user",
+								"content",
+								"edit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJ1c2VybmFtZSI6InNhbGltIiwiaWF0IjoxNjY5MzQ1OTg2LCJleHAiOjE2NjkzNDY4MjZ9.ulIvjvnx6LUYtjXQM6BdVrPoO4EnRIeHG_ELpXfnjtw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetId\": \"638023dcfafd182b22a8f334\",\n    \"content\": \"first tweet by katia updated by salim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/content/edit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"content",
+										"edit"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Tweet content updated succesfully\"\n}"
+						},
+						{
+							"name": "400 Tweet Not Exist Or Forbidden Edit",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJ1c2VybmFtZSI6InNhbGltIiwiaWF0IjoxNjY5MzQ1OTg2LCJleHAiOjE2NjkzNDY4MjZ9.ulIvjvnx6LUYtjXQM6BdVrPoO4EnRIeHG_ELpXfnjtw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetId\": \"638023dcfafd182b22a8f334\",\n    \"content\": \"first tweet by katia updated by salim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/content/edit",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"content",
+										"edit"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Tweet doesn't exist or edit forbidden\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Tweet By Id | AUTHENTICATED",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMjFjMWEwN2MyMjUwOWQwOTAyZTYiLCJ1c2VybmFtZSI6InN2aXRsYW5hIiwiaWF0IjoxNjY5Mzg5Njc3LCJleHAiOjE2NjkzOTA1MTd9.Q_8k4wZc52_G3qmB9nCIYCEH65QtiwY7toRgRuobYyk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tweetId\": \"6380d403cd65aa9236ff8d91\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tweet/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tweet",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 SUCCESS",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJpYXQiOjE2NjkzMjI4NzYsImV4cCI6MTY2OTMyMzcxNn0.lztKVPa1Qbl0sGYNk7Qyp761_ywrndGIF8LdxbZeG3A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetId\": \"6380255276eb948acc5d0180\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Tweet deleted succesfully\"\n}"
+						},
+						{
+							"name": "400 Tweet Not Exist Or Forbidden Delete",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlYzJiNWE1YWQ5MWFhMTNkZDlmMDkiLCJpYXQiOjE2NjkzMjI4NzYsImV4cCI6MTY2OTMyMzcxNn0.lztKVPa1Qbl0sGYNk7Qyp761_ywrndGIF8LdxbZeG3A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetId\": \"6380255276eb948acc5d0180\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/tweet/post",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"tweet",
+										"post"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Tweet doesn't exist or forbidden delete\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

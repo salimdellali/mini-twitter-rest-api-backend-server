@@ -7,6 +7,7 @@ const router = Router();
 
 router.route('/feed/get').get(TweetController.getFeed);
 
+// requires authentication
 router
   .route('/user/all/get')
   .get(authMiddleware, TweetController.getTweetsByUser);
