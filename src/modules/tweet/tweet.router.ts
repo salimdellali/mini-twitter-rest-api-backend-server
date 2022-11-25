@@ -13,7 +13,7 @@ router
   .get(authMiddleware, TweetController.getTweetsByUser);
 
 router
-  .route('/post')
+  .route('/user/post')
   .post(
     authMiddleware,
     tweetContentValidation,
@@ -22,7 +22,7 @@ router
   );
 
 router
-  .route('/content/edit')
+  .route('/user/content/edit')
   .patch(
     authMiddleware,
     tweetContentValidation,
