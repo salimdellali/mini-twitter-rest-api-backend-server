@@ -1,12 +1,16 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
+import SwaggerUi from 'swagger-ui-express';
+import * as dotenv from 'dotenv';
+
 import { Database } from './config/database.config';
 import { UserRouter } from './modules/user';
 import { AuthRouter } from './modules/auth';
 import { TweetRouter } from './modules/tweet';
 import { errorMiddleware } from './middlewares';
 import { IAppConfig } from './shared/interfaces';
-import * as dotenv from 'dotenv';
+import { Swagger } from './config/swagger.config';
+
 dotenv.config();
 
 export const app: Express = express();
@@ -27,6 +31,15 @@ const appConfig: IAppConfig = {
       ? process.env.TEST_DB_NAME!
       : process.env.DB_NAME!,
 };
+
+// enable swagger documentation only on dev and test envs
+if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
+  app.use(
+    appConfig.API_VERSION + '/docs',
+    SwaggerUi.serve,
+    SwaggerUi.setup(Swagger),
+  );
+}
 
 Database.connect(appConfig.MONGODB_URL, appConfig.DB_NAME);
 app.use(cors());

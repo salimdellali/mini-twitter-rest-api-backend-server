@@ -1,0 +1,563 @@
+tags:
+  - name: User
+    description: operetions upon users
+  - name: Auth
+    description: operations upon users authentication
+  - name: Tweet
+    description: operations upon tweets
+paths:
+  /user/signup:
+    post:
+      tags:
+        - User
+      summary: signup
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsBody'
+        required: true
+      responses:
+        '201':
+          description: Account created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Account created succesfully
+        '400':
+          description: User with such username already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: User with such username already exists
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsBody'
+        required: true
+      responses:
+        '200':
+          description: Logged in sucessfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Logged in sucessfully
+                  accessToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY2OTIxNjIyNn0.4HKpe246AGiJDaXjjeOJEZjWYmaeoDgK4YxgxeLdMAM
+                  refreshToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY3MTgwNzM4Nn0.ZMjpAPxYHc_xqeXxjDJIDaQeQa9GRo_Oi-Scs470T0w
+                  lastAccess:
+                    type: Date
+                    example: '2022-11-23T14:14:15.078Z'
+        '404':
+          description: User with such username doesn't exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: User with such username doesn't exists
+  /auth/token/access/new:
+    post:
+      tags:
+        - Auth
+      summary: get new acess token with refresh token
+      operationId: getNewAccessTokenWithRefreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY3MTgwNzM4Nn0.ZMjpAPxYHc_xqeXxjDJIDaQeQa9GRo_Oi-Scs470T0w
+        required: true
+      responses:
+        '200':
+          description: New access token created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: New access token created successfully
+                  accessToken:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzgwMWNjMDA2OGQ3MGM2ZjA3NWU4MDQiLCJ1c2VybmFtZSI6ImthdGlhIiwiaWF0IjoxNjY5NDAxNDcxLCJleHAiOjE2Njk0MDIzMTF9.6NVBwYs0IQeAHJAFJjw_XTebywKrKlPzlgsxbsBkshs
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid refresh token
+  /auth/logout:
+    delete:
+      tags:
+        - Auth
+      summary: logout
+      operationId: logout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY3MTgwNzM4Nn0.ZMjpAPxYHc_xqeXxjDJIDaQeQa9GRo_Oi-Scs470T0w
+        required: true
+      responses:
+        '201':
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Logged out successfully
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid refresh token
+  /auth/token/refresh/verify:
+    post:
+      tags:
+        - Auth
+      summary: verify refresh token
+      operationId: verifyRefreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdkNjc2NDBjZjk4NTViN2YxNzUxYTQiLCJpYXQiOjE2NjkyMTUzODYsImV4cCI6MTY3MTgwNzM4Nn0.ZMjpAPxYHc_xqeXxjDJIDaQeQa9GRo_Oi-Scs470T0w
+        required: true
+      responses:
+        '200':
+          description: Valid refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Valid refresh token
+                  refreshTokenPayload:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: 63801cc0068d70c6f075e804
+                      username:
+                        type: string
+                        example: john
+                      iat:
+                        type: number
+                        example: 1669340359
+                      exp:
+                        type: number
+                        example: 1671932359
+        '401':
+          description: Invalid refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid refresh token
+
+  /tweet/feed/get:
+    get:
+      tags:
+        - Tweet
+      summary: get feed
+      operationId: getFeed
+      responses:
+        '200':
+          description: Fetch all the feed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Feed fetched succesfully
+                  feed:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FeedTweet'
+  /tweet/user/all/get:
+    get:
+      tags:
+        - Tweet
+      summary: get all tweets owned by a user (user must be authenticated by providing a valid access token in the Authorization request header)
+      operationId: getTweetsByUser
+      responses:
+        '200':
+          description: User tweets fetched successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User tweets fetched successfully
+                  feed:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserTweet'
+      security:
+        - auth:
+            - create:tweet: create a new tweet
+            - read:tweets: get all users tweets
+            - update:tweet: update tweet content
+            - delete:tweet: delete tweet
+  /tweet/user/post:
+    post:
+      tags:
+        - Tweet
+      summary: post a new tweet (user must be authenticated by providing a valid access token in the Authorization request header)
+      operationId: postTweetByContentAndUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: Lorem ipsum sit dolor
+        required: true
+      responses:
+        '201':
+          description: Tweet created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Tweet created succesfully
+        '400':
+          description: User provided empty content
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EmptyInputResponse'
+        '401':
+          description: User provided an invalid or no token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid token, access denied
+      security:
+        - auth:
+            - create:tweet: create a new tweet
+            - read:tweets: get all users tweets
+            - update:tweet: update tweet content
+            - delete:tweet: delete tweet
+  /tweet/user/content/edit:
+    patch:
+      tags:
+        - Tweet
+      summary: update tweet content (user must be authenticated by providing a valid access token in the Authorization request header)
+      operationId: updateTweetContentByIdAndUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tweetId:
+                  type: string
+                  example: 6380d40bcd65aa9236ff8d9
+                content:
+                  type: string
+                  example: Lorem ipsum sit dolor
+        required: true
+      responses:
+        '200':
+          description: Tweet content updated succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Tweet content updated succesfully
+        '400':
+          description: Tweet doesn't exist or edit forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Tweet doesn't exist or edit forbidden
+      security:
+        - auth:
+            - create:tweet: create a new tweet
+            - read:tweets: get all users tweets
+            - update:tweet: update tweet content
+            - delete:tweet: delete tweet
+  /tweet/user/delete:
+    delete:
+      tags:
+        - Tweet
+      summary: delete tweet (user must be authenticated by providing a valid access token in the Authorization request header)
+      operationId: deleteTweetByIdAndUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tweetId:
+                  type: string
+                  example: 6380d40bcd65aa9236ff8d9
+      responses:
+        '200':
+          description: Tweet content deleted succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Tweet content deleted succesfully
+        '400':
+          description: Tweet doesn't exist or delete forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Tweet doesn't exist or delete forbidden
+      security:
+        - auth:
+            - create:tweet: create a new tweet
+            - read:tweets: get all users tweets
+            - update:tweet: update tweet content
+            - delete:tweet: delete tweet
+
+components:
+  schemas:
+    EmptyInputResponse:
+      description: express-validator error response inside message property
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                example: empty_string
+              msg:
+                type: string
+                example: Please provide an input
+              param:
+                type: string
+                example: input
+              location:
+                type: string
+                example: body
+    CredentialsBody:
+      type: object
+      properties:
+        username:
+          type: string
+          example: john
+        password:
+          type: string
+          example: 123
+    FeedTweet:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 6380255276eb948acc5d0180
+        username:
+          type: string
+          example: brad
+        content:
+          type: string
+          example: Lorem ipsum sit dolor
+        nbLikes:
+          type: number
+          example: 5
+        nbComments:
+          type: number
+          example: 3
+        createdAt:
+          type: Date
+          example: '2022-11-25T02:15:46.148Z'
+    UserTweet:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 638023dcfafd182b22a8f334
+        user:
+          type: string
+          example: 63801cc0068d70c6f075e804
+        username:
+          type: string
+          example: steve
+        content:
+          type: string
+          example: Lorem ipsum sit dolor
+        nbLikes:
+          type: number
+          example: 2
+        nbComments:
+          type: number
+          example: 1
+        createdAt:
+          type: Date
+          example: '2022-11-25T02:09:32.956Z'
+        updateddAt:
+          type: Date
+          example: '2022-11-25T14:01:09.963Z'
+        __v:
+          type: number
+          example: 0
+
+securitySchemes:
+  auth:
+    type: jwt
+    flows:
+      implicit:
+        scopes:
+          create:tweet: create a new tweet
+          read:tweets: get all users tweets
+          update:tweet: update tweet content
+          delete:tweet: delete tweet
+  api_key:
+    type: Authorization
+    name: access token
+    in: header
