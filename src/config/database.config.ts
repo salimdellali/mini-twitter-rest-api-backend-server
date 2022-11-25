@@ -13,7 +13,6 @@ export class MongoDBConfiguration {
   }
 
   async connect(connectionString: string, dbName: string) {
-    // @TODO insert a logger
     try {
       await mongoose.connect(connectionString, { dbName });
       console.log('[DB_INFO]\t: Connection to MongoDB established');

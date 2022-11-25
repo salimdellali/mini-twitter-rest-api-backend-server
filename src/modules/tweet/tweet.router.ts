@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import { validatorMiddleware } from '../../middlewares';
-import { tweetContentValidation } from '../../validations/tweetContent.validation';
+import { validatorMiddleware, authMiddleware } from '../../middlewares';
+import { tweetContentValidation } from '../../validations';
 import TweetController from './tweet.controller';
-import { authMiddleware } from '../../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -12,6 +11,7 @@ router
   .route('/user/all/get')
   .get(authMiddleware, TweetController.getTweetsByUser);
 
+// requires authentication
 router
   .route('/user/post')
   .post(
@@ -21,6 +21,7 @@ router
     TweetController.postTweetByContentAndUser,
   );
 
+// requires authentication
 router
   .route('/user/content/edit')
   .patch(
@@ -30,6 +31,7 @@ router
     TweetController.updateTweetContentByIdAndUser,
   );
 
+// requires authentication
 router
   .route('/user/delete')
   .delete(authMiddleware, TweetController.deleteTweetByIdAndUser);
