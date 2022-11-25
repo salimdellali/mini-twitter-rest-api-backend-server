@@ -11,9 +11,9 @@ this project is an express server serving Mini Twitter REST API
 - run `cp .env.example .env`
 - copy environment variables inside the `.env` file
 - if doing development:
-  - run `npm run start:dev`
+  - launch the server by running `npm run start:dev`
   - if doing tests, run `npm run test:dev` to relaunch tests automatically after save
-- if making it run on the production:
+- if launching the server on the production:
   - run `npm run build`
   - run `npm start`
 - to launch tests one time:
@@ -21,6 +21,10 @@ this project is an express server serving Mini Twitter REST API
 - before commiting to the repo:
   - run `npm run prettier-format` to pretty the code
   - run `npm run lint` to look for ESLint warnings and errors
+
+## Swagger documentation
+
+you can find the swagger documentation of the REST API by launching the server and hitting the endpoint `/api/v1/docs/`
 
 ## Project structure
 
@@ -40,7 +44,7 @@ this project is an express server serving Mini Twitter REST API
 - implement user module
 - meanwhile testing the endpoints using postman
 - implement auth module
-- implementing tests for user module (and realizing I kind of suck at tests ':-) )
+- implement tests for user module (and realizing I kind of suck at tests ':-) )
 - implement tweet module
 - linting the project ( because I realized I had ESLint disabled until the end of the project ':-) )
 - write swagger documentation
@@ -52,7 +56,7 @@ this project is an express server serving Mini Twitter REST API
 - Typescript
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB ( already hosted on the cloud with MongoDB Atlass )
 - Mongoose
 - Json Web Tokens
 - Bcrypt
